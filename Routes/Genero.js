@@ -1,15 +1,17 @@
 const {Router} = require('express');
-const { validationResult } = require('express-validator');
+const { check, validationResult } = require('express-validator');
 const Genero = require('../models/Genero');
 const { status } = require('express/lib/response');
 
 const router = Router();
 
+
+//Creación de los elementos en DB Genero
 router.post('/', [ 
     check('nombre','invalid.nombre').not().isEmpty(),
     check('estado', 'invalid.estado').isIn(['Activo', 'Inactivo']),
     check('descripcion', 'invalid.descripcion').not().isEmpty()    
-] ,async function(req, res){
+    ] ,async function(req, res){
     try{
         const errors = validationResult(req);
         if(!error.isEmpty()){
@@ -32,10 +34,10 @@ router.post('/', [
         res.status(500).send('Ha ocurrido un error de conexion');
     }
 
-})
+});
 
-
-router.get('/', async function(req, res){
+//Obtención de los generos existentes
+router.get('/Generos', async function(req, res){
     
     try{
         const genero = await Genero.find();
@@ -47,5 +49,6 @@ router.get('/', async function(req, res){
 
 })       
 
+//Eliminación de los generos
 
 module.exports = router;

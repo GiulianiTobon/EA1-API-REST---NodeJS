@@ -1,5 +1,5 @@
 const {Router} = require('express');
-const { validationResult } = require('express-validator');
+const {check ,  validationResult } = require('express-validator');
 const Tipo = require('../models/Tipo');
 const { status } = require('express/lib/response');
 
@@ -45,3 +45,6 @@ router.get('/', async function(req, res){
     }
 
 })
+
+
+module.exports = router;

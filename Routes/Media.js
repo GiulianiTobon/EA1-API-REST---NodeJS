@@ -1,5 +1,5 @@
 const {Router} = require('express');
-const { validationResult } = require('express-validator');
+const { check, validationResult } = require('express-validator');
 const Media = require('../models/Media');
 const { status } = require('express/lib/response');
 
@@ -31,10 +31,11 @@ router.post('/', [
                 return res.status(400).send('El URL ya existe en la base de datos');
             }
 
-        const productoraEstaActiva = await Media.findOne({Productora: req.body.productora});
+        /* const productoraEstaActiva = await Media.filter({Productora} => {
             if (productoraEstaActiva != 'Activa'){
-                return res.status(400).send('La productora no se encuentra activa');
-            }
+            return res.status(400).send('La productora no se encuentra activa')}}
+        */
+            
 
         let media = new Media();
 
@@ -72,3 +73,5 @@ router.get('/', async function(req, res){
     }
 
 })
+
+module.exports = router;

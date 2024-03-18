@@ -1,5 +1,5 @@
 const {Router} = require('express');
-const { validationResult } = require('express-validator');
+const { check, validationResult } = require('express-validator');
 const Director = require('../models/Director');
 const { status } = require('express/lib/response');
 

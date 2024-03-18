@@ -8,7 +8,7 @@ const MediaSchema = Schema({
     image: {type:String, require: true},
     FechaCreacion: {type:Date, require: true},
     FechaActualizacion: {type:Date, require: true},
-    AnnoEstreno: {type:Date, require: True},
+    AnnoEstreno: {type:Date, require: true},
     GeneroPrincipal: {type:Schema.Types.ObjectId, ref:"Genero", require: true},
     Director: {type:Schema.Types.ObjectId, ref:"Director", require: true},
     Productora: {type:Schema.Types.ObjectId, ref:"Productora", require: true},
