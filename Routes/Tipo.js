@@ -15,6 +15,9 @@ router.get('/', ControllerTipo.getTipo);
 
 router.delete('/', ControllerTipo.deleteTipo);
 
-router.put('/', ControllerTipo.putTipo);
+router.put('/', [
+    check('nombre','invalid.nombre').not().isEmpty(),
+    check('descripcion', 'invalid.descripcion').not().isEmpty()
+], ControllerTipo.putTipo);
 
 module.exports = router;

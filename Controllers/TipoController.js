@@ -67,7 +67,7 @@ const deleteTipo = async function(req, res){
 
 const putTipo = async function(req, res){
     try{
-        
+
         const errors = validationResult(req);
         if(!errors.isEmpty()){
             return res.status(400).json({mensaje: errors.array()});
@@ -76,15 +76,9 @@ const putTipo = async function(req, res){
         const tipo = await Tipo.findOneAndUpdate(
             { nombre: req.params.Nombre }, // Filtro para encontrar el documento por su nombre
             {
-                Titulo: req.body.Titulo,
-                Sinopsis: req.body.Sinopsis,
-                Url: req.body.URL,
-                image: req.body.image,
+                Nombre: req.body.Nombre,
                 fechaActualizacion : new Date(),
-                AnnoEstreno : req.body.AnnoEstreno,
-                GeneroPrincipal : req.body.Genero._id,
-                Productora : req.body.Productora._id,       
-                Tipo: req.body.Tipo._id
+                Descripcion: req.body.Descripcion                
             },
             {new: true}
         );
