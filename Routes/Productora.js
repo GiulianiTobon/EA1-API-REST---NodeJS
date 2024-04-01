@@ -1,7 +1,6 @@
 const {Router} = require('express');
-const { check, validationResult } = require('express-validator');
-const Productora = require('../models/Productora');
-const { status } = require('express/lib/response');
+const { check } = require('express-validator');
+const ProductoraController = require('../Controllers/ProductoraController')
 
 
 const router = Router();
@@ -11,43 +10,17 @@ router.post('/', [
     check('estado', 'invalid.estado').isIn(['Activo', 'Inactivo']),
     check('slogan', 'invalid.slogan').not().isEmpty(),
     check('descripcion', 'invalid.descripcion').not().isEmpty()  
-] ,async function(req, res){
-    try{
-        const errors = validationResult(req);
-        if(!error.isEmpty()){
-            return res.status(400).json({mensaje: errors.array()});
-        }
+] , ProductoraController.postProductora);
 
-        let productora = new Productora();
+router.get('/', ProductoraController.getProductora);
 
-        productora.nombre = req.body.nombre;
-        productora.estado = req.body.estado;
-        productora.fechaCreacion = new Date();
-        productora.fechaActualizacion = new Date();
-        productora.slogan = req.body.slogan;
-        productora.descripcion = req.body.descripcion;
+router.delete('/',ProductoraController.deleteProductora);
 
-        productora = await productora.save();
-        res.send(productora);
-
-    }catch(error){
-        console.log(error);
-        res.status(500).send('Ha ocurrido un error de conexion');
-    }
-
-})
-
-
-router.get('/', async function(req, res){
-    
-    try{
-        const productora = await Productora.find();
-        res.send(productora);
-    }catch(error){
-        console.log(error);
-        res.status(500).send('Ha ocurrido un error de conexion');
-    }
-
-})
+router.put('/',[
+    check('nombre','invalid.nombre').not().isEmpty(),
+    check('estado', 'invalid.estado').isIn(['Activo', 'Inactivo']),
+    check('slogan', 'invalid.slogan').not().isEmpty(),
+    check('descripcion', 'invalid.descripcion').not().isEmpty()
+], ProductoraController.putProductora);
 
 module.exports = router;
