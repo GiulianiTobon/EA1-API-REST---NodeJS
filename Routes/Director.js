@@ -1,7 +1,7 @@
 const {Router} = require('express');
 const { check} = require('express-validator');
 const directorController = require('../Controllers/DirectorController')
-const { status } = require('express/lib/response');
+
 
 
 const router = Router();
@@ -13,7 +13,7 @@ router.post('/', [
 
 router.get('/', directorController.getDirector);       
 
-router.delete('/', directorController.deteleDirector)
+router.delete('/', directorController.deleteDirector)
 
 router.put('/', [
     check('nombre','invalid.nombre').not().isEmpty(),

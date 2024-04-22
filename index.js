@@ -1,13 +1,17 @@
 const express = require('express');
-const {getConnection} = require('./db/conection_Mongoose');
+const {getConnection} = require('./db/connection_mongoose');
 const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
 const host = '0.0.0.0';
-const port = process.env.PORT || '8080';
+const port = process.env.PORT || '4000';
 
-app.use(cors());
+app.use(cors
+    ({
+        origin: '*'
+    })
+);
 
 getConnection();
 
