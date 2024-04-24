@@ -10,19 +10,18 @@ const postTipo = async function(req, res){
             return res.status(400).json({mensaje: errors.array()});
         }
 
-        let tipo = new Tipo();
+        const body = req.body
 
-        tipo.nombre = req.body.nombre;        
-        tipo.fechaCreacion = new Date();
-        tipo.fechaActualizacion = new Date();
-        tipo.descripcion = req.body.descripcion;
+        const tipo = new Tipo(body)
 
-        tipo = await tipo.save();
-        res.send(tipo);
+        await tipo.save()
 
-    }catch(error){
-        console.log(error);
-        res.status(500).send('Ha ocurrido un error de conexion');
+        return res.status(201).json(tipo)
+    
+    } catch(e){
+        return res.status(500).json({
+            message: e
+        })
     }
 }
 

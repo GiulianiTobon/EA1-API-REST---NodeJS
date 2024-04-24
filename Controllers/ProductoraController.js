@@ -8,20 +8,24 @@ const { status } = require('express/lib/response');
 const postProductora = async function(req, res){
 
     try{
+        console.log("He llegado aqui1")
         const errors = validationResult(req);
-        if(!error.isEmpty()){
+        
+        if(!errors.isEmpty()){            
             return res.status(400).json({mensaje: errors.array()});
         }
 
+        
         const body = req.body
-
+        
         const productora = new Productora(body)
-
+        
         await productora.save()
 
         return res.status(201).json(productora)
     
     } catch(e){
+        console.log("He llegado aqui2")
         return res.status(500).json({
             message: e
         })

@@ -5,7 +5,7 @@ const {Schema, model} = require('mongoose');
 const GeneroSchema = Schema({
     nombre: {
         type: String,
-        unique: [true, 'Nombre es único'],
+        unique: [true, 'nombre es único'],
         minLength: 1
     },
     estado: {

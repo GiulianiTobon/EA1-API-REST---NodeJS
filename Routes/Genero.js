@@ -10,7 +10,7 @@ router.post('/agregar', [
     check('nombre','invalid.nombre').not().isEmpty(),
     check('estado', 'invalid.estado').isIn(['Activo', 'Inactivo']),
     check('descripcion', 'invalid.descripcion').not().isEmpty()    
-    ] ,generoControllers.postGenders);
+    ], generoControllers.postGenders);
 
 //Obtención de los generos existentes
 router.get('/', generoControllers.getGenders);      

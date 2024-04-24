@@ -9,6 +9,7 @@ const router = Router();
 router.post('/', [ 
     check('Titulo','invalid.Titulo').not().isEmpty(),
     check('Sinopsis','invalid.Sinopsis').not().isEmpty(),
+    check('url', 'invalid.url').not().isEmpty(),
     check('image','invalid.image').not().isEmpty(),
     check('AnnoEstreno','invalid.AnnoEstreno').not().isEmpty(),
     check('GeneroPrincipal','invalid.GeneroPrincipal').not().isEmpty(),
