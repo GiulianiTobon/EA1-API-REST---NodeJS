@@ -9,19 +9,18 @@ const postDirector = async function(req, res){
             return res.status(400).json({mensaje: errors.array()});
         }
 
-        let director = new Director();
+        const body = req.body
 
-        director.nombre = req.body.nombre;
-        director.estado = req.body.estado;
-        director.fechaCreacion = new Date();
-        director.fechaActualizacion = new Date();
+        const director = new Director(body)
 
-        director = await director.save();
-        res.send(director);
+        await director.save()
 
-    }catch(error){
-        console.log(error);
-        res.status(500).send('Ha ocurrido un error de conexion');
+        return res.status(201).json(director)
+    
+    } catch(e){
+        return res.status(500).json({
+            message: e
+        })
     }
 
 }

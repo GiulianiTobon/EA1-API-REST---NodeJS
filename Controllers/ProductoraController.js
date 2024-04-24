@@ -13,21 +13,18 @@ const postProductora = async function(req, res){
             return res.status(400).json({mensaje: errors.array()});
         }
 
-        let productora = new Genero();
+        const body = req.body
 
-        productora.nombre = req.body.nombre;
-        productora.estado = req.body.estado;
-        productora.fechaCreacion = new Date();
-        productora.fechaActualizacion = new Date();
-        productora.slogan = req.body.slogan;
-        productora.descripcion = req.body.descripcion;
+        const productora = new Productora(body)
 
-        productora = await productora.save();
-        res.send(productora);
+        await productora.save()
 
-    }catch(error){
-        console.log(error);
-        res.status(500).send('Ha ocurrido un error de conexion');
+        return res.status(201).json(productora)
+    
+    } catch(e){
+        return res.status(500).json({
+            message: e
+        })
     }
 }
 

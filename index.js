@@ -19,6 +19,7 @@ getConnection();
 //parseo JSON
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: false}));
 
 app.use('/Genero', require('./Routes/Genero'));
 app.use('/Director', require('./Routes/Director'));
@@ -27,5 +28,5 @@ app.use('/Tipo', require('./Routes/Tipo'));
 app.use('/Media', require('./Routes/Media'));
 
 app.listen(port, host, () => {
-    console.log('Example app listening on port ${port}')
+    console.log(`Example app listening on port ${port}`);
 });

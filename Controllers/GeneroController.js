@@ -5,24 +5,22 @@ const { status } = require('express/lib/response');
 const postGenders =  async function (req, res){
     try{
         const errors = validationResult(req);
-        if(!error.isEmpty()){
+        if(!errors.isEmpty()){
             return res.status(400).json({mensaje: errors.array()});
         }
 
-        let genero = new Genero();
+        const body = req.body
 
-        genero.nombre = req.body.nombre;
-        genero.estado = req.body.estado;
-        genero.fechaCreacion = new Date();
-        genero.fechaActualizacion = new Date();
-        genero.descripcion = req.body.descripcion;
+        const genero = new Genero(body)
 
-        genero = await genero.save();
-        res.send(genero);
+        await genero.save()
 
-    }catch(error){
-        console.log(error);
-        res.status(500).send('Ha ocurrido un error de conexion');
+        return res.status(201).json(genero)
+    
+    } catch(e){
+        return res.status(500).json({
+            message: e
+        })
     }
 };
 
@@ -41,26 +39,18 @@ const getGenders = async function(req, res){
 const deleteOneGenders = async function(req, res){
 
     try{
-        
-        const errors = validationResult(req);
-        if(!errors.isEmpty()){
-            return res.status(400).json({mensaje: errors.array()});
-        }
-        /*
-        const {nombre} = req.params;
-        
-        await genero.findOneAndDelete({
-            nombre: nombre
+        const id = req.params.id
+
+        await Genero.findByIdAndDelete(id)
+
+        return res.status(204).json({
+            message: "Borrado con exito"
         })
-       */
 
-        await Genero.findOneAndDelete({nombre: nombre});
-        res.send("Eliminado correctamente")        
-        console.log("Eliminado Correctamente")
-
-    }catch(error){
-        console.log(error);
-        res.status(500).send('Ha ocurrido un error');
+    } catch(error){
+        return res.status(500).json({
+            message: error
+        })
     }
 
 };
@@ -72,17 +62,13 @@ const putGenders = async function(req, res){
         if(!errors.isEmpty()){
             return res.status(400).json({mensaje: errors.array()});
         }
-        const genero = await Genero.findOneAndUpdate(
-            { nombre: req.params.Nombre }, // Filtro para encontrar el documento por su nombre
-            {
-                nombre: req.body.nombre,
-                estado: req.body.estado,
-                fechaActualizacion: new Date(),
-                descripcion: req.body.descripcion
-            },
-            {new: true}
-        );
-        res.send(genero)
+
+        const id = req.params.id
+            const body = req.body
+            console.log(body)
+            body.fechaActualizacion = new Date()
+            const genero = await Genero.findByIdAndUpdate(id, body, {new: true})
+            return res.status(201).json(genero)
     }catch(error){
         console.log(error);
         res.status(500).send('Ha ocurrido un error');
