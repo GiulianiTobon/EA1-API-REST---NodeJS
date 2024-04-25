@@ -12,18 +12,18 @@ const postMedia = async function (req, res) {
     if (!errors.isEmpty()) {
       return res.status(400).json({ mensaje: errors.array() });
     }
-
+    /*
     const existeMediaPorSerial = await Media.findOne({
       serial: req.body.serial,
     });
     if (existeMediaPorSerial) {
       return res.status(400).send("El serial ya existe en la base de datos");
-    }
+    }*/
     const existeMediaPorURL = await Media.findOne({ URL: req.body.Url });
     if (existeMediaPorURL) {
       return res.status(400).send("El URL ya existe en la base de datos");
     }
-    /*/
+    /*
         const body = req.body
 
         const media = new Media(body)
@@ -38,7 +38,7 @@ const postMedia = async function (req, res) {
         media.Serial = req.body.Serial;
         media.Titulo = req.body.Titulo;
         media.Sinopsis = req.body.Sinopsis;
-        media.Url = req.body.URL;
+        media.Url = req.body.url;
         media.image = req.body.image;
         media.fechaCreacion = new Date();
         media.fechaActualizacion = new Date();

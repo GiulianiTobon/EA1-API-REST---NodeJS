@@ -1,7 +1,7 @@
 const {Schema, model} = require('mongoose');
 
 const MediaSchema = Schema({ 
-    Serial:{type:String, require: true, unique: true},
+    Serial:{type:String, require: true},
     Titulo: {type:String, require: true},
     Sinopsis: {type:String, require: true},
     Url: {type:String, require: true, unique: true},
